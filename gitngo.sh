@@ -5,16 +5,11 @@ usage() {
   echo "Usage: gitngo [file_path] [\"commit message\"]"
   echo "       file_path: The file or directory to add. If not specified, defaults to all changes ('.')."
   echo "       commit message: The commit message to use. If not specified, defaults to 'Default commit message'."
+  exit 1
 }
 
 # Check if the user requested help
 if [[ "$1" == "--help" ]]; then
-  usage
-fi
-
-# Check for the correct number of arguments
-if [[ "$#" -gt 2 ]]; then
-  echo "Error: Too many arguments."
   usage
 fi
 
