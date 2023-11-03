@@ -26,9 +26,13 @@ To use `gitngo`, navigate to your git project directory and execute the command:
 gitngo [file_path] ["commit message"]
 ```
 
-- If no parameters are provided, `gitngo` will add all changes, commit with the default message "Default commit message", and push to the main branch.
-- If a file path is provided, `gitngo` will add only that file.
-- If a file path and a commit message are provided, `gitngo` will add the specified file and use the provided commit message.
+Now, you can use the `gitngo` function in several ways:
+
+- `gitngo`: This will add all changes and commit with the default message.
+- `gitngo some-file.txt`: This will add `some-file.txt` and commit with the default message.
+- `gitngo some-file.txt "My commit message"`: This will add `some-file.txt` and commit with "My commit message".
+- `gitngo . "My commit message"`: This will add all changes and commit with "My commit message".
+
 
 ## Getting Help
 
