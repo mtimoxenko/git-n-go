@@ -53,6 +53,8 @@ if [ -z "$1" ]; then
         }
       ]
     }' | jq -r '.choices[0].message.content')
+
+  commit_message=$(echo $commit_message | sed -e 's/^"//' -e 's/"$//')
 else
   # Use the provided commit message
   commit_message="$*"
@@ -65,6 +67,7 @@ if [ $? -ne 0 ]; then
   echo "Error: failed to add files."
   exit 1
 fi
+
 
 # Commit the changes
 echo "Committing with message: $commit_message"
