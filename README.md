@@ -67,4 +67,3 @@ Always use `git status` to review changes before committing to avoid unintended 
 ## Contributing
 
 Contributions are welcome! Fork, create a feature branch, make your changes, commit, push, and open a pull request. Ensure your commits are well-documented and tested.
-
