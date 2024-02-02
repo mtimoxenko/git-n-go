@@ -4,7 +4,7 @@
 usage() {
   echo "Usage: gitngo [file_path] [commit message]"
   echo "       file_path: The file or directory to add. If not specified, defaults to all changes ('.')."
-  echo "       commit message: The commit message to use. If not specified, defaults to 'Default commit message'."
+  echo "       commit message: The commit message to use. If not specified, defaults to '[gitngo] default commit msg'."
   exit 1
 }
 
@@ -14,14 +14,14 @@ if [[ "$1" == "--help" ]]; then
 fi
 
 # Check if this is a git repository
-if ! git rev-parse --git-dir > /dev/null 2>&1; then
-    echo "Error: not a git repository."
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "NOT a git repository!"
     exit 1
 fi
 
 # Determine file path to add
 file_path="."
-if [ "$1" ]; then
+if [ -n "$1" ]; then
   file_path="$1"
   shift # Remove the file path argument
 fi
@@ -29,17 +29,26 @@ fi
 # Add the specified files or all files if file_path is '.'
 echo "Adding $file_path"
 git add "$file_path"
+if [ $? -ne 0 ]; then
+  echo "Error: failed to add files."
+  exit 1
+fi
 
 # All remaining arguments are considered part of the commit message
-commit_message="$*"
-if [ -z "$commit_message" ]; then
-  commit_message="Default commit message"
-fi
+commit_message="${*:-[gitngo] default commit msg}"
 
 # Commit the changes
 echo "Committing with message: $commit_message"
 git commit -m "$commit_message"
+if [ $? -ne 0 ]; then
+  echo "Error: commit failed."
+  exit 1
+fi
 
 # Push the commit to the origin's main branch
 echo "Pushing to the origin's main branch"
 git push -u origin main
+if [ $? -ne 0 ]; then
+  echo "Error: push failed."
+  exit 1
+fi
