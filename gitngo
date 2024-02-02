@@ -4,7 +4,7 @@
 usage() {
   echo "Usage: gitngo [file_path] [commit message]"
   echo "       file_path: The file or directory to add. If not specified, defaults to all changes ('.')."
-  echo "       commit message: The commit message to use. If not specified, defaults to '[gitngo] default commit msg'."
+  echo "       commit message: The commit message to use. If not specified, a random default message is used."
   exit 1
 }
 
@@ -26,6 +26,26 @@ if [ -n "$1" ]; then
   shift # Remove the file path argument
 fi
 
+# Define an array of possible commit messages
+commit_messages=(
+    "Quick update, no time to explain!"
+    "Coding in the fast lane."
+    "Rapid commit, keep moving."
+    "On-the-go code update."
+    "Effortless push, because why not?"
+    "Speed coding, speedy commit."
+    "No fuss, just progress."
+    "From editor to repo, swiftly."
+    "Instant commit, just like magic."
+    "Seamless code journey, onwards!"
+)
+
+# Generate a random index to select a message
+random_index=$(($RANDOM % ${#commit_messages[@]}))
+
+# Set the commit message, using a randomly selected default if none is provided
+commit_message="${*:-${commit_messages[$random_index]}}"
+
 # Add the specified files or all files if file_path is '.'
 echo "Adding $file_path"
 git add "$file_path"
@@ -33,9 +53,6 @@ if [ $? -ne 0 ]; then
   echo "Error: failed to add files."
   exit 1
 fi
-
-# All remaining arguments are considered part of the commit message
-commit_message="${*:-default commit msg by [gitngo]}"
 
 # Commit the changes
 echo "Committing with message: $commit_message"

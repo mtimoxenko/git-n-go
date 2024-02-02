@@ -9,7 +9,6 @@ Developed with new coders in mind, `gitngo` simplifies the Git process. Watching
 
 `gitngo` is the swiss army knife for your Git operations; it's compact, efficient, and eliminates the need for multiple commands. With `gitngo`, you can add, commit, and push all in one go. It's like having superpowers for your repository management tasks!
 
-
 ## Quick Start
 
 Get up and running with `gitngo` in seconds:
@@ -25,27 +24,21 @@ gitngo
 
 For more usage options or detailed instructions, see the full usage guide or use `gitngo --help`.
 
+## New Feature: Random Default Commit Messages
 
-
-
-
-
-
-
-
-
+When you run `gitngo` without specifying a commit message, it now selects a fun and original default message at random. This adds an element of surprise and delight, making each commit unique without the need to think of a message on the spot.
 
 ## Usage
 
-To use the script, run `gitngo` from the command line in your Git repository. This will add all changes, commit them with a message `default commit msg by [gitngo]`, and then push to the `main` branch of the remote repository named `origin`.
+To use the script, run `gitngo` from the command line in your Git repository. This will add all changes, commit them with a random default message, and then push to the `main` branch of the remote repository named `origin`.
 
 1. **Without Arguments:**
    - Usage: `gitngo`
-   - This will add all changes (tracked and untracked files) in the repository and commit them with a default message `default commit msg by [gitngo]`, and then push to the `main` branch of the remote repository named `origin`.
+   - This will add all changes (tracked and untracked files) in the repository and commit them with a random default message, and then push to the `main` branch of the remote repository named `origin`.
 
 2. **Specify File or Directory:**
    - Usage: `gitngo [file_path]`
-   - Replace `[file_path]` with the path to the specific file or directory you want to add. This will commit these changes with the default commit message and push them.
+   - Replace `[file_path]` with the path to the specific file or directory you want to add. This will commit these changes with the specified or a random default commit message and push them.
 
 3. **Specify File and Commit Message:**
    - Usage: `gitngo [file_path] [commit message]`
@@ -73,7 +66,6 @@ sudo chmod +x /usr/local/bin/gitngo
 **Note:** For updates, repeat the installation steps to ensure you're using the latest version of `gitngo`.
 
 Always check the current status of your repository with `git status` before using the script to avoid unintended commits.
-
 
 ## Contributing
 
