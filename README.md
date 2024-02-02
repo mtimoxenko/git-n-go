@@ -33,6 +33,13 @@ To use the script, run it from the command line in your Git repository. Here are
 
 1. Download the `gitngo` script.
 2. Give it executable permissions using `chmod +x gitngo`.
-3. Move it to a directory in your `PATH` for easy access, or run it from its current location.
+3. To make `gitngo` accessible from any location in your terminal, you can copy the script to a directory that's included in your system's `PATH` environment variable, such as `/usr/local/bin`. Use the following commands:
+   ```
+   sudo cp gitngo /usr/local/bin/gitngo
+   sudo chmod +x /usr/local/bin/gitngo
+   ```
+   After these steps, you can run `gitngo` from any directory without specifying its path.
+
+**Note:** If you later modify the `gitngo` script, you'll need to copy the updated version to `/usr/local/bin` again to replace the old one. This ensures that the global `gitngo` command uses the latest version of your script.
 
 Remember to always check the current status of your repository with `git status` before using the script to avoid unintended commits.
