@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # All remaining arguments are considered part of the commit message
-commit_message="${*:-[gitngo] default commit msg}"
+commit_message="${*:-default commit msg by gitngo}"
 
 # Commit the changes
 echo "Committing with message: $commit_message"
