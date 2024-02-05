@@ -24,9 +24,9 @@ gitngo
 
 For more usage options or detailed instructions, see the full usage guide or use `gitngo --help`.
 
-## New Feature: AI-Powered Commit Messages
+## AI-Powered Commit Messages
 
-`gitngo` now leverages AI to generate commit messages when you don't specify one. If you run `gitngo` without a commit message, it'll call upon OpenAI's GPT model to craft a unique, contextually relevant message for your commit, blending efficiency with creativity.
+`gitngo`  leverages AI to generate commit messages when you don't specify one. If you run `gitngo` without a commit message, it'll call upon OpenAI's GPT model to craft a unique, contextually relevant message for your commit, blending efficiency with creativity.
 
 
 ## Usage
