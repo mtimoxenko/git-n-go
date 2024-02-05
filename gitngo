@@ -33,39 +33,41 @@ if [ -n "$1" ]; then
 fi
 
 
-# If no commit message is provided, use OpenAI to generate one
+# If no commit message is provided, first check for OPENAI_API_KEY
 if [ -z "$1" ]; then
   # Retrieve the API key from the environment variable
   api_key=$OPENAI_API_KEY
 
-  # Check if the API key is not empty
-  if [ -z "$api_key" ]; then
-      echo "Error: OpenAI API key is not set."
-      exit 1
+  # Check if the API key is not empty and valid (for simplicity, just checking it's not empty)
+  if [ -n "$api_key" ]; then
+      # The prompt you're sending to the API for generating a commit message
+      PROMPT="Generate a concise, engaging commit message suitable for a git utility script aimed at developers. The message should motivate quick updates with a touch of humor. Ideally, keep it under 10 words to ensure it's catchy yet informative. Example: 'Quick fix, big impact'."
+
+      # API call using curl to get the commit message
+      commit_message=$(curl -s https://api.openai.com/v1/chat/completions \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Bearer $OPENAI_API_KEY" \
+        -d '{
+          "model": "gpt-3.5-turbo",
+          "messages": [
+            {
+              "role": "user",
+              "content": "'"${PROMPT}"'"
+            }
+          ]
+        }' | jq -r '.choices[0].message.content')
+
+      # Remove quotes from the AI response if necessary
+      commit_message=$(echo $commit_message | sed -e 's/^"//' -e 's/"$//')
+  else
+      # Use the predefined default commit message
+      commit_message="[gitngo] default commit message"
   fi
-
-  # The prompt you're sending to the API
-  PROMPT="Generate 1 short, catchy commit message for a git utility script designed for developers who want to quickly update their work without spending too much time on commit messages. The message should encourage fast, effortless updates with a bit of humor or motivation."
-
-  # API call using curl to get the commit message
-  commit_message=$(curl -s https://api.openai.com/v1/chat/completions \
-    -H "Content-Type: application/json" \
-    -H "Authorization: Bearer $OPENAI_API_KEY" \
-    -d '{
-      "model": "gpt-3.5-turbo",
-      "messages": [
-        {
-          "role": "user",
-          "content": "'"${PROMPT}"'"
-        }
-      ]
-    }' | jq -r '.choices[0].message.content')
-
-  commit_message=$(echo $commit_message | sed -e 's/^"//' -e 's/"$//')
 else
   # Use the provided commit message
   commit_message="$*"
 fi
+
 
 # Add the specified files or all files if file_path is '.'
 echo "Adding $file_path"
